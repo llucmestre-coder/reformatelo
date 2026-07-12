@@ -1,0 +1,558 @@
+/* ============================================================
+   styles.css — REFORMATELO (Alex Vela) · Sants, Barcelona
+   Paleta «asfalt i alta visibilitat»: el verd #90FF2D surt del
+   logo; el negre asfalt, de l'ofici (tela asfàltica); els
+   neutres clars, del guix/pladur. Vegeu PLA.md.
+   ============================================================ */
+
+:root {
+  /* Colors */
+  --asfalt: #101410;          /* fons dominant fosc */
+  --asfalt-capa: #182018;     /* superfícies elevades sobre fosc */
+  --asfalt-vora: #2A362A;     /* línies i vores sobre fosc */
+  --llima: #90FF2D;           /* verd del logo — NOMÉS accents sobre fosc */
+  --llima-hover: #A8FF57;
+  --verd-text: #3D7A00;       /* variant fosca AA per a text sobre clar */
+  --guix: #F6F7F3;            /* seccions clares (pladur) */
+  --guix-capa: #ECEEE6;       /* targetes sobre clar */
+  --guix-vora: #D8DCD2;
+  --text-fosc: #1A211A;
+  --text-fosc-suau: #4A554A;
+  --text-clar: #EDEFEA;
+  --text-clar-suau: #A9B4A9;
+  --error: #D8504A;
+
+  /* Tipografia */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Karla', system-ui, sans-serif;
+  --fs-hero: clamp(2.5rem, 6vw, 4.25rem);
+  --fs-h2: clamp(1.9rem, 4vw, 2.9rem);
+  --fs-h3: clamp(1.25rem, 2.2vw, 1.55rem);
+  --fs-lg: 1.15rem;
+  --fs-base: 1rem;
+  --fs-sm: 0.875rem;
+  --fs-xs: 0.78rem;
+  --tracking-eyebrow: 0.18em;
+  --tracking-label: 0.08em;
+
+  /* Espai i forma */
+  --seccio: clamp(4rem, 9vw, 7.5rem);
+  --container: 1200px;
+  --container-pad: clamp(1.25rem, 5vw, 3rem);
+  --radius: 6px;
+  --xamfra: 12px; /* cantonada tallada dels botons — eco de la teulada del logo */
+}
+
+/* ── Reset breu ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: 1.65;
+  color: var(--text-fosc);
+  background: var(--asfalt);
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+ul, ol { list-style-position: inside; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.12; text-wrap: balance; }
+
+:focus-visible {
+  outline: 3px solid var(--llima);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.seccio-clara :focus-visible { outline-color: var(--verd-text); }
+
+.container { max-width: var(--container); margin-inline: auto; padding-inline: var(--container-pad); }
+
+.skip-link {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--llima); color: var(--text-fosc);
+  padding: 0.6rem 1rem; z-index: 200; font-weight: 700;
+}
+.skip-link:focus { left: 0; }
+
+/* ── Seccions fosques / clares ── */
+.seccio { padding-block: var(--seccio); }
+.seccio-fosca { background: var(--asfalt); color: var(--text-clar); }
+.seccio-clara { background: var(--guix); color: var(--text-fosc); }
+.seccio-clara-2 { background: var(--guix-capa); color: var(--text-fosc); }
+
+.eyebrow {
+  display: inline-block;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.seccio-fosca .eyebrow, .hero .eyebrow, .hero-compacte .eyebrow { color: var(--llima); }
+.seccio-clara .eyebrow, .seccio-clara-2 .eyebrow { color: var(--verd-text); }
+
+.seccio-cap { max-width: 46rem; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+.seccio-cap h2 { font-size: var(--fs-h2); margin-bottom: 1rem; }
+.seccio-cap p { font-size: var(--fs-lg); }
+.seccio-fosca .seccio-cap p { color: var(--text-clar-suau); }
+.seccio-clara .seccio-cap p, .seccio-clara-2 .seccio-cap p { color: var(--text-fosc-suau); }
+
+/* ── Botons (xamfrà superior dret = angle de teulada) ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  font-family: var(--font-body);
+  font-weight: 700; font-size: var(--fs-base);
+  padding: 0.85rem 1.6rem;
+  border: 2px solid transparent;
+  cursor: pointer; text-decoration: none;
+  clip-path: polygon(0 0, calc(100% - var(--xamfra)) 0, 100% var(--xamfra), 100% 100%, 0 100%);
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.btn-primari { background: var(--llima); color: var(--text-fosc); }
+.btn-primari:hover { background: var(--llima-hover); }
+.btn-contorn { background: transparent; color: var(--text-clar); border-color: var(--asfalt-vora); }
+.btn-contorn:hover { border-color: var(--llima); color: var(--llima); }
+.seccio-clara .btn-contorn, .seccio-clara-2 .btn-contorn { color: var(--text-fosc); border-color: var(--guix-vora); }
+.seccio-clara .btn-contorn:hover, .seccio-clara-2 .btn-contorn:hover { border-color: var(--verd-text); color: var(--verd-text); }
+.btn svg { flex-shrink: 0; }
+
+/* ── Navegació ── */
+.site-nav {
+  position: fixed; inset-inline: 0; top: 0; z-index: 100;
+  background: rgba(16, 20, 16, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.site-nav.scrolled { background: rgba(16, 20, 16, 0.92); border-bottom-color: var(--asfalt-vora); }
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1.5rem; min-height: 76px;
+}
+.nav-logo img { width: 176px; height: 64px; object-fit: contain; }
+.nav-links { display: flex; gap: 1.75rem; align-items: center; }
+.nav-links a {
+  color: var(--text-clar); text-decoration: none;
+  font-weight: 500; font-size: var(--fs-sm);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  padding-block: 0.4rem;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.nav-links a:hover { color: var(--llima); }
+.nav-links a[aria-current="page"] { color: var(--llima); border-bottom-color: var(--llima); }
+.nav-tel { white-space: nowrap; }
+
+.nav-hamburger {
+  display: none;
+  background: none; border: 0; cursor: pointer;
+  width: 44px; height: 44px;
+  flex-direction: column; justify-content: center; align-items: center; gap: 6px;
+}
+.nav-hamburger span {
+  display: block; width: 26px; height: 2px;
+  background: var(--text-clar);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.nav-hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.nav-hamburger.active span:nth-child(2) { opacity: 0; }
+.nav-hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+.mobile-menu {
+  position: fixed; inset: 0; z-index: 90;
+  background: var(--asfalt);
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2rem;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.mobile-menu.open { opacity: 1; visibility: visible; }
+.mobile-menu a {
+  color: var(--text-clar); text-decoration: none;
+  font-family: var(--font-display); font-size: 1.8rem; font-weight: 600;
+}
+.mobile-menu a:hover { color: var(--llima); }
+.mobile-menu .btn { font-family: var(--font-body); font-size: 1.1rem; }
+
+/* ── Hero (portada) ── */
+.hero {
+  position: relative;
+  display: flex; align-items: center;
+  min-height: 92vh;
+  padding-block: 9rem 5rem;
+  background: var(--asfalt); color: var(--text-clar);
+  overflow: hidden;
+}
+.hero-inner { position: relative; z-index: 2; max-width: 52rem; }
+.hero h1 { font-size: var(--fs-hero); margin-bottom: 1.4rem; }
+.hero h1 em { font-style: italic; color: var(--llima); }
+.hero-sub { font-size: var(--fs-lg); color: var(--text-clar-suau); max-width: 40rem; margin-bottom: 2.2rem; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+.hero-nota { margin-top: 1.4rem; font-size: var(--fs-sm); color: var(--text-clar-suau); }
+.hero-nota strong { color: var(--text-clar); }
+.hero-nota a { color: var(--llima); font-weight: 700; text-decoration: none; }
+.hero-nota a:hover { text-decoration: underline; }
+
+/* Teulada del logo dibuixada al fons del hero (decorativa) */
+.hero-teulada {
+  position: absolute; right: -6%; bottom: -8%;
+  width: min(46vw, 640px); height: auto;
+  z-index: 1; opacity: 0.9;
+  pointer-events: none;
+}
+.hero-teulada path {
+  fill: none; stroke: var(--llima); stroke-width: 3;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.hero-teulada .teulada-traç {
+  stroke-dasharray: 1600;
+  stroke-dashoffset: 1600;
+  animation: dibuixa 2.2s ease-out 0.3s forwards;
+}
+@keyframes dibuixa { to { stroke-dashoffset: 0; } }
+
+/* Hero compacte (pàgines interiors) */
+.hero-compacte {
+  padding-block: 9rem 4rem;
+  background: var(--asfalt); color: var(--text-clar);
+}
+.hero-compacte h1 { font-size: clamp(2.2rem, 4.5vw, 3.4rem); margin-bottom: 1rem; }
+.hero-compacte p { font-size: var(--fs-lg); color: var(--text-clar-suau); max-width: 44rem; }
+
+/* ── Tria de camí (portada): particular vs comunitat ── */
+.camins { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 3vw, 2.5rem); }
+.cami {
+  display: flex; flex-direction: column;
+  background: var(--guix-capa);
+  border: 1px solid var(--guix-vora);
+  border-radius: var(--radius);
+  padding: clamp(1.75rem, 3.5vw, 2.75rem);
+  text-decoration: none;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.cami:hover { border-color: var(--verd-text); transform: translateY(-4px); }
+.cami .eyebrow { margin-bottom: 0.6rem; }
+.cami h3 { font-size: var(--fs-h3); margin-bottom: 0.8rem; }
+.cami p { color: var(--text-fosc-suau); margin-bottom: 1.2rem; }
+.cami ul { list-style: none; margin-bottom: 1.6rem; }
+.cami li { padding-left: 1.4rem; position: relative; margin-bottom: 0.45rem; color: var(--text-fosc-suau); }
+.cami li::before {
+  content: ""; position: absolute; left: 0; top: 0.62em;
+  width: 0.7em; height: 2px; background: var(--verd-text);
+}
+.cami-enllac {
+  margin-top: auto; font-weight: 700; color: var(--verd-text);
+  display: inline-flex; align-items: center; gap: 0.4rem;
+}
+.cami:hover .cami-enllac { text-decoration: underline; }
+
+/* ── L'edifici (element signatura) ── */
+.edifici-grid {
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem); align-items: center;
+}
+.edifici-figura svg { width: 100%; height: auto; }
+.edifici-figura .traç {
+  fill: none; stroke: #4A5C4A; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.edifici-figura .terra-linia { stroke: var(--asfalt-vora); stroke-width: 2; }
+.edifici-part { cursor: pointer; }
+.edifici-part .traç { transition: stroke 0.25s ease; }
+.edifici-part .zona { fill: transparent; transition: fill 0.25s ease; }
+.edifici-part.activa .traç { stroke: var(--llima); }
+.edifici-part.activa .zona { fill: rgba(144, 255, 45, 0.08); }
+
+.edifici-controls { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.75rem; }
+.edifici-boto {
+  display: flex; align-items: baseline; gap: 0.8rem;
+  background: none; border: 1px solid var(--asfalt-vora);
+  border-radius: var(--radius);
+  color: var(--text-clar);
+  font-family: var(--font-body); font-size: var(--fs-base); font-weight: 500;
+  text-align: left; padding: 0.7rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.edifici-boto:hover { border-color: var(--llima); }
+.edifici-boto[aria-pressed="true"] { border-color: var(--llima); background: rgba(144, 255, 45, 0.07); }
+.edifici-boto .num {
+  font-family: var(--font-display); font-style: italic;
+  color: var(--text-clar-suau); font-size: var(--fs-sm);
+}
+.edifici-boto[aria-pressed="true"] .num { color: var(--llima); }
+
+.edifici-panell {
+  border-left: 2px solid var(--llima);
+  padding-left: 1.25rem;
+  min-height: 7.5rem;
+}
+.edifici-panell h3 { font-size: var(--fs-h3); margin-bottom: 0.5rem; }
+.edifici-panell p { color: var(--text-clar-suau); margin-bottom: 0.8rem; }
+.edifici-panell a { color: var(--llima); font-weight: 700; text-decoration: none; }
+.edifici-panell a:hover { text-decoration: underline; }
+
+/* ── Targetes de servei ── */
+.serveis-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.25rem, 2.5vw, 2rem); }
+.servei {
+  background: var(--guix);
+  border: 1px solid var(--guix-vora);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  scroll-margin-top: 100px;
+}
+.seccio-clara .servei { background: var(--guix-capa); }
+.servei svg { color: var(--verd-text); margin-bottom: 1rem; }
+.servei h3 { font-size: 1.25rem; margin-bottom: 0.6rem; }
+.servei p { color: var(--text-fosc-suau); font-size: var(--fs-sm); }
+
+/* ── Valors / per què nosaltres ── */
+.valors-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.25rem, 2.5vw, 2rem); }
+.valor h3 { font-size: 1.2rem; margin-bottom: 0.55rem; }
+.valor p { color: var(--text-fosc-suau); font-size: var(--fs-sm); }
+.valor .valor-num {
+  font-family: var(--font-display); font-style: italic; font-weight: 600;
+  color: var(--verd-text); font-size: 1.1rem;
+  display: block; margin-bottom: 0.5rem;
+}
+
+/* ── Estadístiques ── */
+.stats-franja {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: clamp(2rem, 6vw, 5rem);
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+  border-block: 1px solid var(--asfalt-vora);
+}
+.stat { text-align: center; }
+.stat-number {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  color: var(--llima); line-height: 1;
+}
+.stat-label {
+  display: block; margin-top: 0.5rem;
+  font-size: var(--fs-xs); font-weight: 700;
+  letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;
+  color: var(--text-clar-suau);
+}
+
+/* ── Procés ── */
+.proces-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.25rem, 2.5vw, 2rem); counter-reset: pas; }
+.pas { position: relative; padding-top: 1rem; border-top: 2px solid var(--guix-vora); }
+.pas::before {
+  counter-increment: pas; content: counter(pas, decimal-leading-zero);
+  font-family: var(--font-display); font-style: italic; font-weight: 600;
+  color: var(--verd-text); font-size: 1.3rem;
+  display: block; margin-bottom: 0.5rem;
+}
+.pas h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+.pas p { color: var(--text-fosc-suau); font-size: var(--fs-sm); }
+
+/* ── Placeholder de fotos (maqueta honesta) ── */
+.fotos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.5rem); }
+.foto-pendent {
+  aspect-ratio: 4 / 3;
+  border: 1px dashed var(--asfalt-vora);
+  border-radius: var(--radius);
+  background: repeating-linear-gradient(-45deg, var(--asfalt-capa) 0 14px, var(--asfalt) 14px 28px);
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.5rem;
+  color: var(--text-clar-suau); font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-label); text-transform: uppercase; font-weight: 700;
+  text-align: center; padding: 1rem;
+}
+.foto-pendent svg { opacity: 0.6; }
+
+/* ── FAQ ── */
+.faq-llista { max-width: 50rem; }
+.faq-item {
+  border-bottom: 1px solid var(--guix-vora);
+}
+.faq-item summary {
+  list-style: none;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  padding-block: 1.2rem;
+  cursor: pointer;
+  font-family: var(--font-display); font-weight: 600; font-size: 1.15rem;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+";
+  font-family: var(--font-body); font-weight: 400; font-size: 1.5rem;
+  color: var(--verd-text); flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item p { padding-bottom: 1.3rem; color: var(--text-fosc-suau); max-width: 44rem; }
+
+/* ── CTA final ── */
+.cta-final { text-align: center; }
+.cta-final h2 { font-size: var(--fs-h2); margin-bottom: 1rem; }
+.cta-final h2 em { font-style: italic; color: var(--llima); }
+.cta-final p { color: var(--text-clar-suau); font-size: var(--fs-lg); max-width: 38rem; margin: 0 auto 2rem; }
+.cta-final .hero-cta { justify-content: center; }
+
+/* ── Franja solidària ── */
+.solidari {
+  display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+  padding-block: 1.4rem;
+  background: var(--guix-capa);
+  border-top: 1px solid var(--guix-vora);
+  font-size: var(--fs-sm); color: var(--text-fosc-suau);
+  text-align: center; padding-inline: var(--container-pad);
+}
+.solidari svg { color: var(--verd-text); flex-shrink: 0; }
+
+/* ── Formulari de contacte ── */
+.hero-contacte { padding-block: 8rem 2.5rem; } /* hero curt: formulari per sobre del fold */
+.seccio-contacte { padding-top: 3rem; }
+.field-error { color: var(--error); font-size: var(--fs-xs); display: block; margin-top: 4px; }
+.form-field input:user-invalid, .form-field textarea:user-invalid { border-color: var(--error); }
+
+.contacte-grid {
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+.form-field { margin-bottom: 1.2rem; }
+.form-field label {
+  display: block; font-weight: 700; font-size: var(--fs-sm);
+  margin-bottom: 0.35rem;
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  font-family: var(--font-body); font-size: 1rem; /* ≥16px: evita zoom iOS */
+  color: var(--text-fosc);
+  background: var(--guix);
+  border: 1px solid var(--guix-vora);
+  border-radius: var(--radius);
+  padding: 0.75rem 0.9rem;
+  transition: border-color 0.2s ease;
+}
+.form-field input:hover, .form-field select:hover, .form-field textarea:hover { border-color: var(--text-fosc-suau); }
+.form-field textarea { resize: vertical; min-height: 7rem; }
+.form-dues { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-privacitat { display: flex; align-items: flex-start; gap: 0.6rem; font-size: var(--fs-sm); color: var(--text-fosc-suau); margin-bottom: 1.4rem; }
+.form-privacitat input { width: 1.1rem; height: 1.1rem; margin-top: 0.2rem; flex-shrink: 0; }
+.form-privacitat a { color: var(--verd-text); }
+.form-success {
+  display: none;
+  background: var(--guix-capa); border: 1px solid var(--verd-text);
+  border-radius: var(--radius); padding: 2rem; text-align: center;
+}
+.form-success.visible { display: block; }
+.form-success h3 { color: var(--verd-text); margin-bottom: 0.5rem; }
+
+.contacte-dades h2 { font-size: var(--fs-h3); margin-bottom: 1.2rem; }
+.dada { display: flex; gap: 0.9rem; align-items: flex-start; margin-bottom: 1.3rem; }
+.dada svg { color: var(--verd-text); flex-shrink: 0; margin-top: 0.2rem; }
+.dada a { color: var(--text-fosc); }
+.dada .dada-titol { font-weight: 700; display: block; font-size: var(--fs-sm); }
+.mapa-wrap {
+  margin-top: 1.5rem;
+  border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--guix-vora);
+}
+.mapa-wrap iframe { display: block; width: 100%; height: 300px; border: 0; }
+
+/* ── Footer ── */
+.site-footer {
+  background: var(--asfalt); color: var(--text-clar-suau);
+  padding-block: clamp(3rem, 6vw, 4.5rem) 2rem;
+  border-top: 1px solid var(--asfalt-vora);
+}
+.footer-grid {
+  display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: clamp(2rem, 4vw, 3.5rem);
+  margin-bottom: 3rem;
+}
+.footer-marca img { width: 200px; height: 73px; object-fit: contain; margin-bottom: 1rem; }
+.footer-marca p { font-size: var(--fs-sm); max-width: 26rem; }
+.footer-col h3 {
+  font-family: var(--font-body); font-size: var(--fs-xs); font-weight: 700;
+  letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;
+  color: var(--text-clar); margin-bottom: 1rem;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 0.55rem; font-size: var(--fs-sm); }
+.footer-col a { color: var(--text-clar-suau); text-decoration: none; }
+.footer-col a:hover { color: var(--llima); }
+.footer-baix {
+  border-top: 1px solid var(--asfalt-vora);
+  padding-top: 1.5rem;
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;
+  font-size: var(--fs-xs);
+}
+.footer-baix a { color: var(--text-clar-suau); }
+.footer-baix a:hover { color: var(--llima); }
+
+/* ── Botó flotant de WhatsApp (únic element pulsant permès) ── */
+.whatsapp-float {
+  position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 80;
+  width: 58px; height: 58px;
+  display: flex; align-items: center; justify-content: center;
+  background: #25D366; color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  animation: puls 2.6s ease-in-out infinite;
+}
+.whatsapp-float:hover { background: #1EBE5A; }
+@keyframes puls {
+  0%, 100% { box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), 0 0 0 0 rgba(37, 211, 102, 0.45); }
+  50% { box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), 0 0 0 12px rgba(37, 211, 102, 0); }
+}
+
+/* ── Scroll reveal (d'un sol tret — mai es torna a amagar) ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── Pàgines legals ── */
+.legal-cos { max-width: 46rem; }
+.legal-cos h2 { font-size: 1.4rem; margin: 2rem 0 0.75rem; }
+.legal-cos p, .legal-cos ul { margin-bottom: 1rem; color: var(--text-fosc-suau); }
+.legal-cos a { color: var(--verd-text); }
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 900px) {
+  .serveis-grid, .fotos-grid { grid-template-columns: repeat(2, 1fr); }
+  .valors-grid, .proces-grid { grid-template-columns: repeat(2, 1fr); }
+  .edifici-grid { grid-template-columns: 1fr; }
+  .edifici-figura { max-width: 26rem; margin-inline: auto; }
+  .contacte-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .nav-links, .nav-tel { display: none; }
+  .nav-hamburger { display: flex; }
+  .camins { grid-template-columns: 1fr; }
+  .hero { min-height: auto; padding-top: 8rem; }
+  .hero-teulada { position: static; width: 100%; max-width: 26rem; margin-top: 2.5rem; opacity: 0.85; }
+  .hero { display: block; }
+}
+
+@media (max-width: 520px) {
+  .serveis-grid, .fotos-grid, .valors-grid, .proces-grid, .form-dues { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .btn { width: 100%; justify-content: center; }
+  .hero-cta { flex-direction: column; align-items: stretch; }
+}
+
+/* ============================================================
+   prefers-reduced-motion: mata tot el moviment
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important; /* sobreescriu keyframes: cas permès */
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .hero-teulada .teulada-traç { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
+  .whatsapp-float { animation: none; }
+  .reveal { opacity: 1; transform: none; }
+}
