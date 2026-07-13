@@ -35,14 +35,28 @@ Format ideal: JPG horitzontal 4:3, mínim 1200×900, ben il·luminades.
 1. **Bany reformat** (1) — `reformas.html`. Si tenen abans/després, millor.
 2. **Cuina reformada** (1) — `reformas.html`.
 3. **Reforma integral** (1 — saló o distribució nova) — `reformas.html`.
-4. **Terrat impermeabilitzat** amb tela asfàltica (1) — `comunidades.html`.
+4. ~~**Terrat impermeabilitzat**~~ ✔ posada (provisional, de l'Instagram — vegeu sota).
 5. **Façana rehabilitada** o bastida treballant (1) — `comunidades.html`.
 6. **Baixant de PVC nou** o camió cuba treballant (1) — `comunidades.html`.
-7. *(Opcional)* Foto d'Alex Vela o de l'equip en obra — reforçaria molt el valor «Alex Vela da la cara» de la portada.
+7. ~~*(Opcional)* Foto d'Alex Vela o de l'equip en obra~~ ✔ posada (provisional, de l'Instagram).
 
 En substituir un placeholder: canviar el `<div class="foto-pendent">` per
 `<img src="assets/….jpg" alt="…" width="1200" height="900" loading="lazy">`
 i esborrar el comentari `FOTO REAL PENDENT`.
+
+### Fotos importades de l'Instagram del client (2026-07-13)
+
+De @reformateloservicios (material propi del client, 10 publicacions revisades):
+
+| Fitxer | Origen | On és | Nota |
+|---|---|---|---|
+| `assets/ig-terrado-poliuretano.jpg` | Reel jul. 2023 «Impermeabilización de terrado comunitario…» | `comunidades.html` (Trabajos recientes) | És la miniatura del vídeo (540×960, vertical). Demanar al client fotos originals del terrat en més resolució. |
+| `assets/ig-equipo-camiseta.webp` | Post juny 2023 «Trabajando con buenas vistas!!» | `index.html` (Por qué Reformatelo) | 1440×1440. D'esquena amb samarreta de marca; no confirmem al peu que sigui l'Alex. |
+| `assets/ig-furgoneta-rotulada.webp` | Post maig 2023 «Ya esta aqui!!!» | `contacto.html` (sota el mapa) | 1440×1440. Matrícula ja difuminada a l'original. |
+
+No hi ha més fotos d'obra a l'Instagram (la resta són gràfics promocionals,
+eines Bosch, targetes i la furgo blanca sense retolar). **Confirmar amb el
+client a la reunió que podem usar aquestes fotos a la web.**
 
 ## Notes tècniques
 
