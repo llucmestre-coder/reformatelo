@@ -3,3 +3,26 @@ PLA.md
 REUNION-CLIENTE.md
 PRIMER-CONTACTE.md
 .claude/
+
+# --- Endurit el 16/08/2026: cobreix les DUES grafies del mateix rol i porta
+# --- globs de seguretat, perquè una variant de nom nova no es publiqui sola.
+PLA.md
+PLA*.md
+REUNIO-CLIENT.md
+REUNION-CLIENTE.md
+TRASPAS*.md
+PRIMER-CONTACTE.md
+prompt*.md
+prompts/
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# --- Endurit el 24/08/2026: FALTAVA EL CLAUDE.md ---------------------------
+# L'enduriment del 16/08/2026 va enumerar els rols de document interns (PLA,
+# REUNIO-CLIENT, TRASPAS, PRIMER-CONTACTE) i es va deixar justament el que
+# Claude Code crea sol a cada carpeta de client. Porta la fitxa interna del
+# negoci: què se li pot vendre, com se'l compara amb la competencia del poble
+# i quins errors s'han evitat. Aquest repositori es PUBLIC.
+# Detectat a La Masia i tapat als dotze repos alhora.
+CLAUDE.md
