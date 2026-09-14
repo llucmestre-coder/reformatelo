@@ -6,6 +6,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* Idiomes: el text que munta aquest fitxer passa per la funció t del
+     motor, cridada literal com I18N.t amb la frase castellana entre
+     cometes (és el que busquen el verificador i i18n-prepara; un embolcall
+     propi els amagaria les frases). Les xifres es formaten amb l'idioma
+     actiu. */
+  const formatNum = (n, decimals) => Number(n).toLocaleString(
+    (window.I18N && window.I18N.bcp) || 'es-ES',
+    { minimumFractionDigits: decimals, maximumFractionDigits: decimals }
+  );
+
   /* ── 1. Nav amb fons en fer scroll ── */
   const nav = document.querySelector('.site-nav');
   if (nav) {
@@ -107,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const duration = 1600;
     const start = performance.now();
-    const fmt = (n) => n.toFixed(decimals).replace('.', ','); // decimals a la castellana
+    const fmt = (n) => formatNum(n, decimals); // separadors de l'idioma actiu (§8.I)
 
     function update(now) {
       const progress = Math.min((now - start) / duration, 1);
@@ -161,9 +171,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const tel = form.querySelector('[name="phone"]');
       const privacitat = form.querySelector('[name="privacidad"]');
 
-      if (!nom.value.trim()) { showFieldError(nom, 'El nombre es obligatorio'); return; }
-      if (!tel.value.trim()) { showFieldError(tel, 'El teléfono es obligatorio'); return; }
-      if (!privacitat.checked) { showFieldError(privacitat, 'Debes aceptar la política de privacidad'); return; }
+      if (!nom.value.trim()) { showFieldError(nom, I18N.t('El nombre es obligatorio')); return; }
+      if (!tel.value.trim()) { showFieldError(tel, I18N.t('El teléfono es obligatorio')); return; }
+      if (!privacitat.checked) { showFieldError(privacitat, I18N.t('Debes aceptar la política de privacidad')); return; }
 
       /* Simula l'enviament — NOMÉS MAQUETA.
          Quan es tingui l'ID de Formspree (vegeu el comentari a contacto.html),
@@ -175,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
            }).then(r => { if (r.ok) { form.style.display = 'none'; successMsg.classList.add('visible'); } });
       */
       const submitBtn = form.querySelector('.form-submit');
-      submitBtn.textContent = 'Enviando…';
+      submitBtn.textContent = I18N.t('Enviando…');
       submitBtn.disabled = true;
 
       setTimeout(() => {
@@ -203,9 +213,26 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── 7. Valoració de Google (data/reviews.json) ──
      L'actualitza el workflow .github/workflows/update-reviews.yml.
      Si el fetch falla — o la web s'obre amb file:// — queden els
-     valors escrits a l'HTML (5,0 / 6). */
+     valors escrits a l'HTML (5,0 / 6).
+     El número cru es desa a data-valor i es pinta amb els separadors
+     de l'idioma actiu: «5,0» en castellà i català, «5.0» en anglès. */
+  const targets = document.querySelectorAll('[data-reviews]');
+
+  function pintaValoracio() {
+    targets.forEach(el => {
+      if (!el.dataset.valor) el.dataset.valor = el.textContent.trim().replace(',', '.');
+      const valor = Number(el.dataset.valor);
+      if (Number.isNaN(valor)) return;
+      el.textContent = formatNum(valor, el.dataset.reviews === 'count' ? 0 : 1);
+    });
+  }
+
+  if (targets.length) {
+    pintaValoracio();
+    document.addEventListener('idioma-canviat', pintaValoracio);
+  }
+
   (function loadReviews() {
-    const targets = document.querySelectorAll('[data-reviews]');
     if (!targets.length || window.location.protocol === 'file:') return;
 
     fetch('data/reviews.json', { cache: 'no-cache' })
@@ -213,18 +240,16 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(data => {
         if (!data || !data.rating || !data.count) return;
         const rating = Number(data.rating);
-        const ratingText = rating.toFixed(1).replace('.', ',');
 
         targets.forEach(el => {
           const kind = el.dataset.reviews;
-          if (kind === 'rating') el.textContent = ratingText;
-          if (kind === 'count') el.textContent = String(data.count);
+          el.dataset.valor = String(kind === 'count' ? data.count : rating);
           if (kind === 'rating-stat') {
             el.dataset.target = String(rating);
             el.dataset.decimals = '1';
-            el.textContent = ratingText;
           }
         });
+        pintaValoracio();
       })
       .catch(() => { /* fallback silenciós: valors de l'HTML */ });
   })();

@@ -1,7 +1,7 @@
 # Web de REFORMATELO (Alex Vela) — maqueta
 
 Web estàtica (obre `index.html` al navegador, sense build). Feta amb el playbook
-`../PLANTILLA-NOVA-WEB.md`; les decisions de disseny estan justificades a `PLA.md`.
+`../../PLANTILLA-NOVA-WEB.md`; les decisions de disseny estan justificades a `PLA.md`.
 
 ## Estructura
 

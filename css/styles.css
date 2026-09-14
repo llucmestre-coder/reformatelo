@@ -609,3 +609,81 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.
   .whatsapp-float { animation: none; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* ── Tria d'idioma (plantilla: recursos-comuns/tria-idioma.css) ──────
+   L'afegeix `i18n-prepara.mjs insereix` al final del CSS de la web.
+   L'aspecte NO és comú: les sis variables de sota s'han de lligar als
+   tokens d'aquella web (colors, radi, tipografia), perquè el desplegable
+   sembli seu i no enganxat. Només el comportament és igual a totes. */
+:root {
+  --tria-text: var(--text-clar);      /* text i vora del botó               */
+  --tria-fons-menu: var(--guix);      /* fons del menú desplegat            */
+  --tria-text-menu: var(--text-fosc); /* barra fosca, menú clar: text fosc  */
+  --tria-hover: var(--asfalt-vora);
+  --tria-actiu: var(--verd-text);     /* idioma triat: el llima no es llegeix sobre guix */
+  --tria-radi: var(--radius);
+  --tria-font: var(--font-body);
+}
+
+/* Tapa el mig segon en què la pàgina encara és en l'idioma base i el
+   diccionari no ha arribat (js/i18n.js hi posa i treu la classe). */
+.i18n-pendent body { opacity: 0; }
+
+.tria-idioma { display: none; }
+.te-js .tria-idioma { position: relative; display: block; flex: none; }
+
+.tria-idioma-boto {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 44px;
+  padding: 0.5rem 0.7rem;
+  background: transparent;
+  border: 1px solid var(--tria-text);
+  border-radius: var(--tria-radi);
+  color: var(--tria-text);
+  font-family: var(--tria-font);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+.tria-idioma-boto:hover,
+.tria-idioma-boto[aria-expanded='true'] { background: var(--tria-hover); }
+.tria-idioma-boto svg { width: 16px; height: 16px; fill: currentColor; flex: none; }
+.tria-idioma-punta { width: 11px !important; height: 11px !important; opacity: 0.7; }
+.tria-idioma-boto[aria-expanded='true'] .tria-idioma-punta { transform: rotate(180deg); }
+
+.tria-idioma-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 110;
+  min-width: 150px;
+  margin: 0;
+  padding: 0.4rem;
+  list-style: none;
+  background: var(--tria-fons-menu);
+  color: var(--tria-text-menu);
+  border: 1px solid var(--tria-text-menu);
+  border-radius: var(--tria-radi);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+.tria-idioma-menu li + li { margin-top: 2px; }
+.tria-idioma-menu button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.5rem 0.7rem;
+  background: none;
+  border: 0;
+  border-radius: 4px;
+  color: inherit;
+  font-family: var(--tria-font);
+  font-size: 0.94rem;
+  text-align: left;
+  cursor: pointer;
+}
+.tria-idioma-menu button:hover { background: var(--tria-hover); }
+.tria-idioma-menu button[aria-current='true'] { font-weight: 600; color: var(--tria-actiu); }
+.tria-idioma-menu button[aria-current='true']::after { content: '✓'; margin-left: auto; }
